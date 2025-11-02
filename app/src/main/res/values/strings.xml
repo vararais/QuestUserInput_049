@@ -17,10 +17,12 @@
 
     <string name="dialog_title">Berhasil</string>
     <string name="dialog_ok">OK</string>
+
     <string name="dialog_label_nama">Nama</string>
-    <string name="dialog_label_alamat">Alamat</string>
+    <string name="dialog_label_kota">Kota</string>
     <string name="dialog_label_tgl_lahir">Tgl. lahir</string>
     <string name="dialog_label_rt">RT</string>
     <string name="dialog_label_rw">RW</string>
     <string name="dialog_label_umur">Umur</string>
+    <string name="dialog_label_jk">Jenis Kelamin</string>
 </resources>

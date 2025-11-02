@@ -1,16 +1,21 @@
 package com.example.questuserinput_049.ui.theme
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -23,9 +28,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,10 +42,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.questuserinput_049.R
 import java.text.SimpleDateFormat
@@ -48,192 +61,247 @@ import java.util.Locale
 @Composable
 fun FormRegistrasi(modifier: Modifier = Modifier) {
 
-    var nama by remember { mutableStateOf("") }
-    var kotaAsal by remember { mutableStateOf("") }
-    var tglLahir by remember { mutableStateOf("") }
-    var rt by remember { mutableStateOf("") }
-    var rw by remember { mutableStateOf("") }
-    var umur by remember { mutableStateOf("") }
+    var textNama by remember { mutableStateOf(value = "") }
+    var textKota by remember { mutableStateOf(value = "") }
+    var textTglLahir by remember { mutableStateOf(value = "") }
+    var textRT by remember { mutableStateOf(value = "") }
+    var textRW by remember { mutableStateOf(value = "") }
+    var textUmur by remember { mutableStateOf(value = "") }
+    var textJK by remember { mutableStateOf(value = "") }
+    var checkboxSetuju by remember { mutableStateOf(value = false) }
 
-    val gender: List<String> = listOf(
-        stringResource(R.string.laki_laki),
-        stringResource(R.string.perempuan)
-    )
-    var jenisKelamin by remember { mutableStateOf(gender[0]) }
+    var nama by remember { mutableStateOf(value = "") }
+    var kotaAsal by remember { mutableStateOf(value = "") }
+    var tglLahir by remember { mutableStateOf(value = "") }
+    var rt by remember { mutableStateOf(value = "") }
+    var rw by remember { mutableStateOf(value = "") }
+    var umur by remember { mutableStateOf(value = "") }
+    var jenisKelamin by remember { mutableStateOf(value = "") }
 
-    var isSetuju by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(value = false) }
+    var gender: List<String> = listOf("Laki-laki", "Perempuan")
 
-    var showDialog by remember { mutableStateOf(false) }
-
-    var showDatePicker by remember { mutableStateOf(false) }
+    var showDatePickerDialog by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState()
-    val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-    Column(
-        modifier = modifier
-            .padding(dimensionResource(R.dimen.padding_default))
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = stringResource(R.string.form),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium))
+        Image(
+            painter = painterResource(id = R.drawable.bekrond),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
 
-        OutlinedTextField(
-            value = nama,
-            onValueChange = { nama = it },
-            label = { Text(stringResource(R.string.nama)) },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
-
-        OutlinedTextField(
-            value = kotaAsal,
-            onValueChange = { kotaAsal = it },
-            label = { Text(stringResource(R.string.kota)) },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            OutlinedTextField(
-                value = tglLahir,
-                onValueChange = { },
-                label = { Text(stringResource(R.string.TTL)) },
+
+            Text(
+                text = stringResource(R.string.form),
+                style = MaterialTheme.typography.headlineSmall,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 45.sp,
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium))
+            )
+
+            Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .clickable { showDatePicker = true },
-                readOnly = true,
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Pilih Tanggal",
-                        modifier = Modifier.clickable { showDatePicker = true }
-                    )
-                }
-            )
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.White.copy(alpha = 0.9f))
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OutlinedTextField(
+                    value = textNama,
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.nama)) },
+                    onValueChange = {
+                        textNama = it
+                    }
+                )
 
-            OutlinedTextField(
-                value = rt,
-                onValueChange = { rt = it },
-                label = { Text(stringResource(R.string.RT)) },
-                modifier = Modifier.width(dimensionResource(R.dimen.rt_rw_width)),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true
-            )
-            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.spacing_small)))
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
 
-            OutlinedTextField(
-                value = rw,
-                onValueChange = { rw = it },
-                label = { Text(stringResource(R.string.RW)) },
-                modifier = Modifier.width(dimensionResource(R.dimen.rt_rw_width)),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true
-            )
-        }
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
+                OutlinedTextField(
+                    value = textKota,
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.kota)) },
+                    onValueChange = {
+                        textKota = it
+                    }
+                )
 
-        OutlinedTextField(
-            value = umur,
-            onValueChange = { umur = it },
-            label = { Text(stringResource(R.string.umur)) },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            singleLine = true
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
 
-        Text(
-            text = stringResource(R.string.jeniskelamin),
-            modifier = Modifier.align(Alignment.Start)
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            gender.forEach { text ->
                 Row(
-                    modifier = Modifier
-                        .selectable(
-                            selected = (jenisKelamin == text),
-                            onClick = { jenisKelamin = text }
-                        )
-                        .padding(end = dimensionResource(R.dimen.padding_medium)),
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RadioButton(
-                        selected = (jenisKelamin == text),
-                        onClick = { jenisKelamin = text }
+                    OutlinedTextField(
+                        value = textTglLahir,
+                        onValueChange = { },
+                        readOnly = true,
+                        modifier = Modifier.weight(2f),
+                        label = { Text(text = stringResource(R.string.TTL)) },
+
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                showDatePickerDialog = true
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.DateRange,
+                                    contentDescription = "Pilih Tanggal"
+                                )
+                            }
+                        }
                     )
-                    Text(text = text, modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small)))
+                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
+                    OutlinedTextField(
+                        value = textRT,
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                        label = { Text(text = stringResource(R.string.RT)) },
+                        onValueChange = { textRT = it },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
+                    OutlinedTextField(
+                        value = textRW,
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                        label = { Text(text = stringResource(R.string.RW)) },
+                        onValueChange = { textRW = it },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
+
+                OutlinedTextField(
+                    value = textUmur,
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.umur)) },
+                    onValueChange = { textUmur = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
+
+                Text(text = stringResource(R.string.jeniskelamin), modifier = Modifier.fillMaxWidth())
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    gender.forEach { item ->
+                        Row(
+                            modifier = Modifier
+                                .selectable(
+                                    selected = textJK == item,
+                                    onClick = { textJK = item }
+                                )
+                                .weight(1f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = textJK == item,
+                                onClick = {
+                                    textJK = item
+                                }
+                            )
+                            Text(text = item)
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = checkboxSetuju,
+                        onCheckedChange = { checkboxSetuju = it }
+                    )
+                    Text(
+                        text = stringResource(R.string.agree),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
+
+                val isFormValid = textNama.isNotEmpty() && textKota.isNotEmpty() &&
+                        textTglLahir.isNotEmpty() && textRT.isNotEmpty() &&
+                        textRW.isNotEmpty() && textUmur.isNotEmpty() &&
+                        textJK.isNotEmpty() && checkboxSetuju
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = isFormValid,
+                    onClick = {
+                        nama = textNama
+                        kotaAsal = textKota
+                        tglLahir = textTglLahir
+                        rt = textRT
+                        rw = textRW
+                        umur = textUmur
+                        jenisKelamin = textJK
+
+                        showDialog = true
+                    }
+                ) {
+                    Text(stringResource(R.string.submit))
                 }
             }
         }
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacing_small)))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .selectable(
-                    selected = isSetuju,
-                    onClick = { isSetuju = !isSetuju }
-                ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(
-                checked = isSetuju,
-                onCheckedChange = { isSetuju = it }
-            )
-            Text(
-                text = stringResource(R.string.agree),
-                modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
-            )
-        }
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
-
-        Button(
-            onClick = {
-                showDialog = true
-            },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = isSetuju
-        ) {
-            Text(stringResource(R.string.submit))
-        }
     }
-    if (showDatePicker) {
+
+    if (showDatePickerDialog) {
         DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
+            onDismissRequest = { showDatePickerDialog = false },
+
             confirmButton = {
-                Button(
+                TextButton(
                     onClick = {
                         val selectedDateMillis = datePickerState.selectedDateMillis
                         if (selectedDateMillis != null) {
-                            tglLahir = dateFormatter.format(Date(selectedDateMillis))
+                            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                            val dateString = formatter.format(Date(selectedDateMillis))
+
+                            textTglLahir = dateString
                         }
-                        showDatePicker = false
+
+                        showDatePickerDialog = false
                     }
                 ) {
                     Text("OK")
                 }
             },
+
             dismissButton = {
-                Button(onClick = { showDatePicker = false }) {
+                TextButton(
+                    onClick = {
+
+                        showDatePickerDialog = false
+                    }
+                ) {
                     Text("Cancel")
                 }
             }
         ) {
+
             DatePicker(state = datePickerState)
         }
     }
@@ -243,14 +311,14 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             onDismissRequest = { showDialog = false },
             title = { Text(stringResource(R.string.dialog_title)) },
             text = {
-
                 Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.spacing_small))) {
                     Text("${stringResource(R.string.dialog_label_nama)}: $nama")
-                    Text("${stringResource(R.string.dialog_label_alamat)}: $kotaAsal")
+                    Text("${stringResource(R.string.dialog_label_kota)}: $kotaAsal")
                     Text("${stringResource(R.string.dialog_label_tgl_lahir)}: $tglLahir")
                     Text("${stringResource(R.string.dialog_label_rt)}: $rt")
                     Text("${stringResource(R.string.dialog_label_rw)}: $rw")
                     Text("${stringResource(R.string.dialog_label_umur)}: $umur")
+                    Text("${stringResource(R.string.dialog_label_jk)}: $jenisKelamin")
                 }
             },
             confirmButton = {
@@ -258,14 +326,14 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
                     onClick = {
                         showDialog = false
 
-                        nama = ""
-                        kotaAsal = ""
-                        tglLahir = ""
-                        rt = ""
-                        rw = ""
-                        umur = ""
-                        jenisKelamin = gender[0]
-                        isSetuju = false
+                        textNama = ""
+                        textKota = ""
+                        textTglLahir = ""
+                        textRT = ""
+                        textRW = ""
+                        textUmur = ""
+                        textJK = ""
+                        checkboxSetuju = false
                     }
                 ) {
                     Text(stringResource(R.string.dialog_ok))
