@@ -2,7 +2,9 @@ package com.example.questuserinput_049.ui.theme
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -52,6 +54,16 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             value = nama,
             onValueChange = { nama = it },
             label = { Text(stringResource(R.string.nama)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
+
+        OutlinedTextField(
+            value = kotaAsal,
+            onValueChange = { kotaAsal = it },
+            label = { Text(stringResource(R.string.kotaAsal)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
