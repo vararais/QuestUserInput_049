@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,22 +22,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.questuserinput_049.R
+import java.text.SimpleDateFormat
+import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormRegistrasi(modifier: Modifier = Modifier) {
 
     var nama by remember { mutableStateOf("") }
     var kotaAsal by remember { mutableStateOf("") }
-    var TTL by remember { mutableStateOf("") }
-    var RT by remember { mutableStateOf("") }
-    var RW by remember { mutableStateOf("") }
+    var tglLahir by remember { mutableStateOf("") }
+    var rt by remember { mutableStateOf("") }
+    var rw by remember { mutableStateOf("") }
     var umur by remember { mutableStateOf("") }
 
-    var jenisKelamin: List<String> = listOf("Laki-laki","Perempuan")
+    val gender: List<String> = listOf(
+        stringResource(R.string.laki_laki),
+        stringResource(R.string.perempuan)
+    )
+    var jenisKelamin by remember { mutableStateOf(gender[0]) }
 
     var isSetuju by remember { mutableStateOf(false) }
 
     var showDialog by remember { mutableStateOf(false) }
+
+    // --- State untuk Date Picker ---
+    var showDatePicker by remember { mutableStateOf(false) }
+    val datePickerState = rememberDatePickerState()
+    val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     Column(
         modifier = modifier
@@ -67,6 +81,8 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
+
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
 
 
     }
