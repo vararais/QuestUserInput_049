@@ -13,11 +13,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -90,7 +92,7 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = kotaAsal,
             onValueChange = { kotaAsal = it },
-            label = { Text(stringResource(R.string.kotaAsal)) },
+            label = { Text(stringResource(R.string.kota)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -111,7 +113,7 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
                 readOnly = true,
                 trailingIcon = {
                     Icon(
-                        imageVector = Icons.Default.DateRange,
+                        imageVector = Icons.Filled.DateRange,
                         contentDescription = "Pilih Tanggal",
                         modifier = Modifier.clickable { showDatePicker = true }
                     )
@@ -151,7 +153,7 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
 
         Text(
-            text = stringResource(R.string.jenisk),
+            text = stringResource(R.string.jeniskelamin),
             modifier = Modifier.align(Alignment.Start)
         )
         Row(
@@ -233,5 +235,40 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             DatePicker(state = datePickerState)
         }
     }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(R.string.dialog_title)) },
+            text = {
+
+                Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.spacing_small))) {
+                    Text("${stringResource(R.string.dialog_label_nama)}: $nama")
+                    Text("${stringResource(R.string.dialog_label_alamat)}: $kotaAsal")
+                    Text("${stringResource(R.string.dialog_label_tgl_lahir)}: $tglLahir")
+                    Text("${stringResource(R.string.dialog_label_rt)}: $rt")
+                    Text("${stringResource(R.string.dialog_label_rw)}: $rw")
+                    Text("${stringResource(R.string.dialog_label_umur)}: $umur")
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showDialog = false
+
+                        nama = ""
+                        kotaAsal = ""
+                        tglLahir = ""
+                        rt = ""
+                        rw = ""
+                        umur = ""
+                        jenisKelamin = gender[0]
+                        isSetuju = false
+                    }
+                ) {
+                    Text(stringResource(R.string.dialog_ok))
+                }
+            }
+        )
     }
 }
