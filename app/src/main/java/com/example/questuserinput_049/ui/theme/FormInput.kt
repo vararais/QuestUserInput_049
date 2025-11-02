@@ -1,11 +1,16 @@
 package com.example.questuserinput_049.ui.theme
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -46,14 +51,14 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
 
     var showDialog by remember { mutableStateOf(false) }
 
-    // --- State untuk Date Picker ---
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState()
     val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     Column(
         modifier = modifier
-            .padding(dimensionResource(R.dimen.padding_default)),
+            .padding(dimensionResource(R.dimen.padding_default))
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -71,7 +76,6 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
-
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
 
         OutlinedTextField(
@@ -81,9 +85,30 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
-
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = tglLahir,
+                onValueChange = { },
+                label = { Text(stringResource(R.string.TTL)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { showDatePicker = true },
+                readOnly = true,
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Pilih Tanggal",
+                        modifier = Modifier.clickable { showDatePicker = true }
+                    )
+                }
+            )
 
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.spacing_small)))
     }
 }
