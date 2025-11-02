@@ -20,6 +20,9 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -113,13 +116,12 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
                 readOnly = true,
                 trailingIcon = {
                     Icon(
-                        imageVector = Icons.Filled.DateRange,
+                        imageVector = Icons.Default.DateRange,
                         contentDescription = "Pilih Tanggal",
                         modifier = Modifier.clickable { showDatePicker = true }
                     )
                 }
             )
-            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.spacing_small)))
 
             OutlinedTextField(
                 value = rt,
