@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -142,5 +144,33 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             singleLine = true
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
+
+        Text(
+            text = stringResource(R.string.jenisk),
+            modifier = Modifier.align(Alignment.Start)
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            gender.forEach { text ->
+                Row(
+                    modifier = Modifier
+                        .selectable(
+                            selected = (jenisKelamin == text),
+                            onClick = { jenisKelamin = text }
+                        )
+                        .padding(end = dimensionResource(R.dimen.padding_medium)),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = (jenisKelamin == text),
+                        onClick = { jenisKelamin = text }
+                    )
+                    Text(text = text, modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small)))
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacing_small)))
     }
 }
