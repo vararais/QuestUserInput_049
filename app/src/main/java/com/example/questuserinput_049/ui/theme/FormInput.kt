@@ -125,12 +125,22 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
             OutlinedTextField(
                 value = rw,
                 onValueChange = { rw = it },
-                label = { Text(stringResource(R.string.RW)) }, // Key baru
+                label = { Text(stringResource(R.string.RW)) },
                 modifier = Modifier.width(dimensionResource(R.dimen.rt_rw_width)),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
             )
         }
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
+
+        OutlinedTextField(
+            value = umur,
+            onValueChange = { umur = it },
+            label = { Text(stringResource(R.string.umur)) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true
+        )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.form_vertical_spacing)))
     }
 }
