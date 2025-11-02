@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.example.questuserinput_049.R
 import java.text.SimpleDateFormat
@@ -108,7 +110,16 @@ fun FormRegistrasi(modifier: Modifier = Modifier) {
                     )
                 }
             )
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.spacing_small)))
 
+            OutlinedTextField(
+                value = rt,
+                onValueChange = { rt = it },
+                label = { Text(stringResource(R.string.RT)) },
+                modifier = Modifier.width(dimensionResource(R.dimen.rt_rw_width)),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                singleLine = true
+            )
             Spacer(modifier = Modifier.width(dimensionResource(R.dimen.spacing_small)))
     }
 }
