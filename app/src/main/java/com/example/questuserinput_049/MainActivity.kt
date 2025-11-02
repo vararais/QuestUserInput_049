@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.questuserinput_049.ui.theme.FormDataDiri
+import com.example.questuserinput_049.ui.theme.FormRegistrasi
 import com.example.questuserinput_049.ui.theme.QuestUserInput_049Theme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuestUserInput_049Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    FormDataDiri(
+                    FormRegistrasi(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
