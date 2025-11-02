@@ -3,4 +3,9 @@
     <dimen name="padding_small">10dp</dimen>
     <dimen name="padding_medium">30dp</dimen>
     <dimen name="devider_tipis">1dp</dimen>
+
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="form_vertical_spacing">12dp</dimen>
+    <dimen name="rt_rw_width">80dp</dimen>
 </resources>
